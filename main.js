@@ -2,13 +2,14 @@
 const version = '19.0.0';
 
 //moduleをインポート
-async function init() {
-    const module1 = await import('https://esm.sh/react@${version}');
-    window.React = module1.default;
-    const module2 = await import('https://esm.sh/react-dom@${version}/client');
-    window.ReactDOM = module2.default;
-    //メインプログラムの実行
-    main();
+function init() {
+    import('https://esm.sh/react@${version}').then(React => {
+        window.React = React;
+        import('https://esm.sh/react-dom@${version}/client').then(ReactDOM => {
+            window.ReactDOM = ReactDOM;
+            main();
+        });
+    });
 }
 
 //メインプログラム
